@@ -38,4 +38,22 @@
   </md-card-content>
 </md-card>
 
+<md-card *ngIf="leader" fxFlex>
+  <md-card-header>
+    <div md-card-avatar></div>
+    <md-card-title>
+      <h3>
+      	<span>{{ leader.name | uppercase }}</span>
+      	<span> {{ leader.abbr | uppercase }}</span>
+      </h3>
+    </md-card-title>
+  </md-card-header>
+  <img md-card-image src={{leader.image}} alt={{promotion.name}}>
+  <md-card-content>
+  	<p>{{ leader.designation }}</p>
+    <p>{{leader.description}}
+    </p>
+  </md-card-content>
+</md-card>
+
 </div>
