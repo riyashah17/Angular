@@ -23,6 +23,21 @@ export class DishdetailComponent implements OnInit {
   commentForm: FormGroup;
   comment: Comment;
 
+  formErrors = {
+    'author': '',
+    'comment':''
+  };
+
+  validationMessages = {
+    'author':{
+      'required': 'Author name is required.',
+      'minlength': 'Author name must be at least 2 characters long'
+    },
+    'comment':{
+      'required': 'Comment is required.'
+    }
+  };
+
   constructor( private dishservice: DishService, 
   private route: ActivatedRoute, private location: Location, private fb: FormBuilder) { 
       this.createForm();
@@ -50,9 +65,30 @@ export class DishdetailComponent implements OnInit {
   createForm(){
     this.commentForm = this.fb.group({
       rating: 5,
-      comment: '',
-      author: '',
+      comment: ['',Validators.required],
+      author: ['', [Validators.required, Validators.minLength(2)]]
     });
+
+    this.commentForm.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+
+    this.onValueChanged();
+  }
+
+  onValueChanged(data ?: any){
+    if(!this.commentForm){return; }
+    const form = this.commentForm;
+
+    for(const field in this.formErrors){
+      this.formErrors[field] = '';
+      const control = form.get(field);
+      if(control && control.dirty && !control.valid){
+        const messages = this.validationMessages[field];
+        for(const key in control.errors){
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
   }
 
   onSubmit(){
