@@ -39,10 +39,23 @@
               <p md-line> {{comment.rating}} Stars</p>
               <p md-line>-- {{comment.author}} {{comment.date | date }}</p>
             </md-list-item>
+            <div [hidden] = "commentForm.invalid">
+            	<md-list-item>
+            		<p md-line>
+            			{{ commentForm.value.comment }}
+            		</p>
+            		<p md-line>
+            			{{ commentForm.value.rating }} Stars
+            		</p>
+            		<p md-line>
+            			-- {{ commentForm.value.author }}
+            		</p>
+            	</md-list-item>
+            </div>
           </md-list>
 </div>
 
-<div fxFlex fxFlexOffset = "20px" class="form-size" *ngIf= "dish">
+	<div  class="form-size" *ngIf = "dish">
 	<form novalidate [formGroup] = "commentForm" (ngSubmit) = "onSubmit()">
 	<p>
 		<md-input-container class="full-width" dividerColor = "{{ formErrors.author ? 'warn' : 'primary' }}">
@@ -51,7 +64,7 @@
 				<span [hidden] = "!(formErrors.author)">{{ formErrors.author }}</span>
 			</md-hint>
 		</md-input-container>
-		<md-slider md-discrete step="1" min="1" max="5" value="5" thumbLabel tickInterval="1">
+		<md-slider md-discrete step="1" min="1" max="5" value="5" thumbLabel tickInterval="1" formControlName="rating">
 		</md-slider>
 		<md-input-container class="full-width" dividerColor = "{{ formErrors.comment ? 'warn' : 'primary' }}">
 			<textarea mdInput formControlName = "comment" placeholder="Your Comment" rows="12" required></textarea>
