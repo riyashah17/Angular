@@ -43,8 +43,8 @@
 
       <div fxFlex fxFlexOffset = "20px" class="form-size">
         <h3>Send us your Feedback</h3>
-        <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
-        <form novalidate [formGroup] = "feedbackForm" (ngSubmit)="onSubmit()">
+<!--         <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
+ -->        <form novalidate [formGroup] = "feedbackForm" (ngSubmit)="onSubmit()">
           <p>
             <md-input-container class = "half-width" dividerColor="{{ formErrors.firstname ? 'warn' : 'primary' }}">
               <input mdInput formControlName="firstname" placeholder="First Name" type="text" required>
