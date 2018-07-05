@@ -3,7 +3,7 @@ import{ Dish } from '../shared/dish';
 import { Params , ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DishService } from '../services/dish.service';
-import 'rxjs/add/operator/switchmap';
+import 'rxjs/add/operator/switchMap';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Comment } from '../shared/comment';
@@ -16,6 +16,7 @@ import { Comment } from '../shared/comment';
 export class DishdetailComponent implements OnInit {
 
   dish: Dish;
+  dishcopy = null;
   dishIds: number[];
   prev: number;
   next: number;
@@ -51,7 +52,8 @@ export class DishdetailComponent implements OnInit {
 
   	this.route.params
       .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-  	  .subscribe(dish => {this.dish = dish ; this.setPrevNext(dish.id)},
+  	  .subscribe(dish => {this.dish = dish ; 
+      this.dishcopy = dish; this.setPrevNext(dish.id)},
       errmess => this.errMess = <any>errmess);
   }
 
@@ -104,7 +106,9 @@ export class DishdetailComponent implements OnInit {
       rating:5,
       comment:''
     });
-    this.dish.comments.push(this.comment);
+    this.dishcopy.comments.push(this.comment);
+    this.dishcopy.save()
+      .subscribe(dish => this.dish = dish);
   }
 
 }

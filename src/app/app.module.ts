@@ -23,6 +23,8 @@ import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './login/login.component';
 import { ProcessHttpmsgService } from './services/process-httpmsg.service';
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFactory } from './shared/restConfig';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { ProcessHttpmsgService } from './services/process-httpmsg.service';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
   ],
   providers: [ DishService,
   PromotionService, 
